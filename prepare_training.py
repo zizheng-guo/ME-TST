@@ -1,5 +1,4 @@
 import numpy as np
-from tensorflow.keras.utils import to_categorical
 
 def loso_split_label(y, final_subjects, final_videos, final_samples, final_dataset_spotting, final_emotions):
     emotion_list = ['negative', 'positive', 'surprise', 'others'] #

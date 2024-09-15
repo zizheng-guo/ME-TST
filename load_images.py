@@ -2,7 +2,6 @@ import glob
 import natsort
 import numpy as np
 import cv2
-import pickle
 
 def load_images(dataset_name, frame_skip):
   images = []

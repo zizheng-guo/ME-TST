@@ -1,8 +1,6 @@
-import pandas as pd
 import numpy as np
-from collections import Counter
-from tensorflow.keras.utils import to_categorical
-import copy
+import torch.nn.functional as F
+import torch
 
 def determine_emotion(emotion_type):
     # 4 emotions
@@ -16,24 +14,6 @@ def determine_emotion(emotion_type):
 
     return label_dict, emotion_dict
 
-def prepare_recog_data(final_dataset, final_subjects, final_emotions, label_dict, emotion_dict, emotion_type):
-    #To split the dataset by subjects
-    groupsLabel_recog = final_subjects.copy()
-    X_recog = final_dataset
-    Y1_recog = final_emotions
-
-    # Convert to 4 emotions
-    # if emotion_type == 4:
-        # Y1_recog = list(pd.Series(Y1_recog).map(emotion_dict))
-        
-    print(emotion_type, 'Emotions:', Counter(Y1_recog))
-    
-    Y1_recog = [label_dict[ele] for ele in Y1_recog]
-    Y1_recog = to_categorical(Y1_recog)
-    print('Total X :', len(X_recog))
-    print('Total y :', len(Y1_recog))
-    
-    return X_recog, Y1_recog, groupsLabel_recog
 
 def pseudo_labeling(frame_skip, dataset, final_samples, final_emotions, label_dict, emotion_type, k):
     #### Pseudo-labeling
@@ -79,7 +59,7 @@ def pseudo_labeling(frame_skip, dataset, final_samples, final_emotions, label_di
 def prepare_spot_data(dataset_name, dataset, final_subjects, final_samples, pseudo_y, pseudo_y1):
     #To split the dataset by subjects
     Y_spot = np.array(pseudo_y)
-    Y1_spot = to_categorical(pseudo_y1)
+    Y1_spot = F.one_hot(torch.tensor(pseudo_y1)).numpy()
     videos_len = []
     groupsLabel_spot = Y_spot.copy()
     prevIndex = 0

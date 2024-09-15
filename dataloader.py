@@ -1,7 +1,6 @@
 
 from torch.utils.data import Dataset
 import random
-random.seed(1)
 
 # Convert dataset into tensor for training and testing
 class OFFSTRDataset(Dataset):

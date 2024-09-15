@@ -7,7 +7,7 @@ from Utils.mean_average_precision_str.mean_average_precision import MeanAverageP
 from numpy import argmax
 import torch.nn as nn
 from sklearn.utils import class_weight
-from tensorflow.keras.utils import to_categorical
+import torch.nn.functional as F
 from training_utils import *
 from dataloader import *
 from network import *
@@ -75,7 +75,7 @@ def train_model(train, X_spot, Y_spot, Y1_spot, groupsLabel_spot, groupsLabel_re
         X_train_final = torch.Tensor(np.array(X_train_final)) #.permute(0,4,1,2,3) #.permute(0,3,1,2)
         Y_train_final = torch.Tensor(np.array(Y_train_final))
         Y1_weight_final= torch.Tensor(np.array(Y1_train_final)).type(torch.long)
-        Y1_train_final= torch.Tensor(to_categorical(np.array(Y1_train_final)))
+        Y1_train_final= torch.Tensor(F.one_hot(torch.tensor(Y1_train_final)).float())
         train_dl = DataLoader(
             OFFSTRDataset((X_train_final[:, :][:, None, :], Y_train_final, Y1_train_final), transform=transform, train=True),
             batch_size=batch_size,
@@ -84,7 +84,7 @@ def train_model(train, X_spot, Y_spot, Y1_spot, groupsLabel_spot, groupsLabel_re
         # Initialize validation dataloader
         X_val_final = torch.Tensor(np.array(X_val_final).astype(float)) #.permute(0,4,1,2,3) #.permute(0,3,1,2)
         Y_val_final = torch.Tensor(np.array(Y_val_final))
-        Y1_val_final = torch.Tensor(to_categorical(np.array(Y1_val_final)))
+        Y1_val_final = torch.Tensor(F.one_hot(torch.tensor(Y1_val_final)).float())
         val_spot_dl = DataLoader(
             OFFSTRDataset((X_val_final[:, :][:, None, :],  Y_val_final, Y1_val_final), transform=transform, train=False),
             batch_size=batch_size,
@@ -93,7 +93,7 @@ def train_model(train, X_spot, Y_spot, Y1_spot, groupsLabel_spot, groupsLabel_re
         # Initialize testing dataloader
         X_test_final = torch.Tensor(np.array(X_test_final)) #.permute(0,4,1,2,3) #.permute(0,3,1,2)
         Y_test_final = torch.Tensor(np.array(Y_test_final))
-        Y1_test_final = torch.Tensor(to_categorical(np.array(Y1_test_final)))
+        Y1_test_final = torch.Tensor(F.one_hot(torch.tensor(Y1_test_final)).float())
         test_spot_dl = DataLoader(
             OFFSTRDataset((X_test_final[:, :][:, None, :],  Y_test_final, Y1_test_final), transform=transform, train=False),
             batch_size=batch_size,
