@@ -113,7 +113,7 @@ def train_model(train, X_spot, Y_spot, Y1_spot, groupsLabel_spot, groupsLabel_re
 
         print('------Initializing Network-------') #To reset the model at every LOSO testing
         # model and optimizer
-        model = Net_Mamba(out_channels=emotion_type).cuda()
+        model = METST(out_channels=emotion_type).cuda()
         model = nn.DataParallel(model)
         optimizer = torch.optim.Adam(model.parameters(), lr=lr)
         scheduler = torch.optim.lr_scheduler.OneCycleLR(optimizer, max_lr=lr, epochs=epochs, steps_per_epoch=len(train_dl))
