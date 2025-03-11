@@ -53,10 +53,12 @@ We referred to [MEAN_Spot-then-recognize](https://github.com/genbing99/MEAN_Spot
 If you find this repository helpful, please consider citing:
 
 ```
-@article{zou2024synergistic,
+@inproceedings{zou2025synergistic,
   title={Synergistic Spotting and Recognition of Micro-Expression via Temporal State Transition},
   author={Zou, Bochao and Guo, Zizheng and Qin, Wenfeng and Li, Xin and Wang, Kangsheng and Ma, Huimin},
-  journal={arXiv preprint arXiv:2409.09707},
-  year={2024}
+  booktitle={ICASSP 2025-2025 IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+  pages={1--5},
+  year={2025},
+  organization={IEEE}
 }
 ```
