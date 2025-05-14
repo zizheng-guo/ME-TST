@@ -11,7 +11,7 @@ import torch.nn.functional as F
 from training_utils import *
 from dataloader import *
 from network import *
-from feature_extraction import *
+
 
 def train_model(train, X_spot, Y_spot, Y1_spot, groupsLabel_spot, groupsLabel_recog, final_dataset_spotting, final_subjects, final_samples, final_videos, final_emotions, emotion_type, epochs, lr, batch_size, dataset_name, k_p, k, ratio, frame_skip, strategy, note):
     
