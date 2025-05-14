@@ -3,7 +3,6 @@ from distutils.util import strtobool
 from load_images import *
 from load_label import *
 from load_excel import *
-from feature_extraction import *
 from prepare_training import *
 from train_evaluate import *
 from prepare_data import *
@@ -28,7 +27,6 @@ train_generator.manual_seed(RANDOM_SEED)
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 def main(config):
-    flow_process = config.flow_process
     train = config.train
     dataset_name = config.dataset_name
     note = config.note
@@ -54,24 +52,15 @@ def main(config):
     label_dict, emotion_dict = determine_emotion(emotion_type)
     codeFinal = load_excel(dataset_name)
 
-    if flow_process:
-        print("\n ------ Loading Images ------")
-        images, subjects, subjectsVideos = load_images(dataset_name,frame_skip)
-        print('\n ------ Loading Ground Truth From Excel ------')
-        final_images, final_subjects, final_videos, final_samples, final_emotions = load_label(dataset_name, images, subjects, subjectsVideos, codeFinal, frame_skip)
-        print('\n ------ Feature Extraction & Pre-processing ------')
-        final_dataset_spotting = feature_extraction_spotting(dataset_name, final_images, k)
-        pickle.dump(final_dataset_spotting, open("cache/"+dataset_name + "_dataset.pkl", "wb")) 
-    else:
-        subjects, subjectsVideos = load_information(dataset_name,frame_skip)
-        images = None
-        final_images, final_subjects, final_videos, final_samples, final_emotions = load_label(dataset_name, images, subjects, subjectsVideos, codeFinal, frame_skip)
-        if dataset_name == "CASME_3":
-            final_dataset_spotting = []
-            for i in range(5):
-                final_dataset_spotting.extend(pickle.load( open("cache/"+dataset_name + "_dataset_" + str(i+1) +".pkl", "rb" ) )) # CASME_3 is too large and is divided into five parts
-        elif dataset_name == "SAMMLV":
-            final_dataset_spotting = pickle.load( open("cache/"+dataset_name + "_dataset.pkl", "rb" ) )
+    subjects, subjectsVideos = load_information(dataset_name,frame_skip)
+    images = None
+    final_images, final_subjects, final_videos, final_samples, final_emotions = load_label(dataset_name, images, subjects, subjectsVideos, codeFinal, frame_skip)
+    if dataset_name == "CASME_3":
+        final_dataset_spotting = []
+        for i in range(5):
+            final_dataset_spotting.extend(pickle.load( open("cache/"+dataset_name + "_dataset_" + str(i+1) +".pkl", "rb" ) )) # CASME_3 is too large and is divided into five parts
+    elif dataset_name == "SAMMLV":
+        final_dataset_spotting = pickle.load( open("cache/"+dataset_name + "_dataset.pkl", "rb" ) )
 
     k_p = cal_k_p(dataset_name, final_samples)
     print('\n ------ Preparing Label ------')
@@ -96,7 +85,6 @@ if __name__ == '__main__':
     # input parameters
     parser.add_argument('--dataset_name', type=str, default='SAMMLV')
     parser.add_argument('--train', type=strtobool, default=True)
-    parser.add_argument('--flow_process', type=strtobool, default=False) 
     parser.add_argument('--note', type=str, default='note') 
     
     config = parser.parse_args()
