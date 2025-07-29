@@ -44,7 +44,6 @@ def load_images(dataset_name, frame_skip):
         print('Done -> ' + dir_vid.split('/')[-1])
         images.append(image)
   
-
   print('Loading images from dataset', dataset_name, 'All Done')
   return images, subjects, subjectsVideos
 
@@ -74,6 +73,7 @@ def load_information(dataset_name, frame_skip):
           subjectsVideos.append([])
         subjectsVideos[-1].append(dir_vid.split('/')[-1])
         print('Done -> ' + dir_vid.split('/')[-1])
+
 
   print('Loading images from dataset', dataset_name, 'All Done')
   return subjects, subjectsVideos

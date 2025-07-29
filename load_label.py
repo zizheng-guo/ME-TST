@@ -8,7 +8,7 @@ def load_label(dataset_name, images, subjects, subjectsVideos, codeFinal, frame_
     emotion_surprise = ['surprise']
     emotion_others = []
 
-    if(dataset_name == 'CASME_3'):
+    if dataset_name == 'CASME_3':
         emotion_positive = ['happy']
         emotion_negative = ['anger', 'disgust', 'fear', 'sad']
         emotion_others = ['others']
@@ -119,7 +119,7 @@ def load_label(dataset_name, images, subjects, subjectsVideos, codeFinal, frame_
 def cal_k_p(dataset_name, final_samples):
     samples = [samples for subjects in final_samples for videos in subjects for samples in videos]
     total_duration = 0
-    # Use frame distance between onset and offset
+    
     for sample in samples:
         total_duration += sample[2]-sample[0] #min(50, sample[2]-sample[0])
     N=total_duration/len(samples)

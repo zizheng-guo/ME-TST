@@ -22,23 +22,22 @@ def spotting(final_samples, subject_count, pred_interval, total_gt_spot, p, metr
         score_plot = np.array(pred_interval[videoIndex])
         score_plot = smooth(score_plot, k_p*2)
         score_plot_agg = score_plot.copy()
-        threshold = score_plot_agg.mean() + p * (max(score_plot_agg) - score_plot_agg.mean()) #Moilanen threshold technique
 
+        threshold = score_plot_agg.mean() + p * (max(score_plot_agg) - score_plot_agg.mean()) #Moilanen threshold technique
         peaks, _ = find_peaks(score_plot_agg, height=threshold, distance=k_p)
-        if(len(peaks)==0): #Occurs when no peak is detected, simply give a value to pass the exception in mean_average_precision
-            preds.append([0, 0, 0, 0, 0, 0, 0]) 
         for peak in peaks:
             preds.append([peak-k_p, 0, peak+k_p, 0, 0, 0, peak]) #Extend left and right side of peak by k frames
 
+        if len(peaks)==0 or len(preds)==0:
+            preds = np.empty((0, 7))
         for samples in video: 
             gt.append([samples[0], 0, samples[2], 0, 0, 0, 0, samples[1]])
             total_gt_spot += 1
-        # print(preds)
-        # print(gt)
         metric_video.add(np.array(preds),np.array(gt))
         metric_final.add(np.array(preds),np.array(gt)) #IoU = 0.5 according to MEGC2020 metrics
         pred_subject.append(preds)
         gt_subject.append(gt)
+
     return pred_subject, gt_subject, total_gt_spot, metric_video, metric_final
 
 def confusionMatrix(gt, pred, show=False):
@@ -82,12 +81,13 @@ def recognition(result, preds, metric_video, final_emotions, subject_count, pred
     for video_index, video_match in pred_match_gt: #key=video_index, value=match index for each video
         for pred_index, sample_index in enumerate(video_match): #pred_index=index of prediction array, sample_index=index of emotion array
             pred_onset = max(0, preds[video_index][pred_index][0])
-            # pred_peak = max(0, preds[video_index][pred_index][-1]) 
+            pred_peak = max(0, preds[video_index][pred_index][-1]) 
             pred_offset = max(0, preds[video_index][pred_index][2])
             pred_emotion_list = pred_emotion[video_index][max(0, pred_onset +1):max(1, pred_offset -1)]
+
             most_common_emotion, _ = Counter(pred_emotion_list).most_common(1)[0]
+
             cur_pred.append(most_common_emotion)
-            
             pred_gt_recog.append(argmax(pred_emotion[video_index][final_samples[subject_count][video_index][0][0]])) #Predicted emotion on gt onset label
             gt_label = final_emotions[subject_count][video_index][sample_index] #Get video emotion    
             if(sample_index!=-1):

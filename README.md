@@ -1,18 +1,8 @@
-# ME-TST
-
-Synergistic Spotting and Recognition of Micro-Expression via Temporal State Transition [ICASSP 2025]
-
-
+# ME-TST+
 
 Framework:
 
 <img src="./figures/framework.jpg" alt="framework" style="zoom: 25%;" />
-
-
-
-Visualization results
-
-<img src="./figures/result.jpg" alt="framework" style="zoom: 35%;" />
 
 
 
@@ -29,6 +19,7 @@ STEP3: `pip install -r ./requirements.txt`
 ## 💻 Example of Using Pre-trained Models
 
 If you want to run the pre-trained model on SAMMLV, use `python main.py --dataset_name SAMMLV --train False`
+
 
 
 
@@ -61,4 +52,6 @@ If you find this repository helpful, please consider citing:
   year={2025},
   organization={IEEE}
 }
+
+
 ```

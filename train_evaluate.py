@@ -25,7 +25,7 @@ def final_evaluation(TP_spot, FP_spot, FN_spot, dataset_name, pred_list, emotion
     f1_recog = recognition_evaluation(dataset_name, emotion_type, gt_tp_spot, pred_tp_spot, show=True)
     # print('Accuracy Score:', round(accuracy_score(gt_tp_spot, pred_tp_spot), 4))
 
-    if dataset_name == "SAMMLV":
+    if True:
         print('\n----wo others----',)
         gt_tp_spot_3emo = []
         pred_tp_spot_3emo = []
