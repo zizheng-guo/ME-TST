@@ -1,6 +1,6 @@
 # ME-TST+
 
-Framework:
+
 
 <img src="./figures/framework.jpg" alt="framework" style="zoom: 25%;" />
 
@@ -19,6 +19,8 @@ STEP3: `pip install -r ./requirements.txt`
 ## 💻 Example of Using Pre-trained Models
 
 If you want to run the pre-trained model on SAMMLV, use `python main.py --dataset_name SAMMLV --train False`
+
+Note: The preprocessed data and pre-trained models on the CASME_3 dataset can be obtained through the link:  https://drive.google.com/drive/folders/1ire62tgZtyvKesYpxUIr9XPV-gRC-yfF?usp=sharing
 
 
 
