@@ -98,10 +98,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     
     # input parameters
-    parser.add_argument('--dataset_name', type=str, default='CASME')
+    parser.add_argument('--dataset_name', type=str, default='SAMMLV')
     parser.add_argument('--train', type=strtobool, default=False)
     parser.add_argument('--flow_process', type=strtobool, default=False) 
-    parser.add_argument('--note', type=str, default='note_250711_final') 
+    parser.add_argument('--note', type=str, default='note') 
     
     config = parser.parse_args()
     main(config)
