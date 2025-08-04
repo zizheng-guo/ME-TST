@@ -50,7 +50,7 @@ def train_model(train, X_spot, Y_spot, Y1_spot, groupsLabel_spot, groupsLabel_re
     gt_tp_neutral_list = []
 
     # Training and Testing
-    subjects_unique = sorted(np.unique(final_subjects))
+    subjects_unique = sorted([int(s) for s in np.unique(final_subjects) if s.isdigit()])
     for subject_count in range(len(subjects_unique)): 
         
         # Use copy to ensure the original value is not modified
