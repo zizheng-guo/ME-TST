@@ -193,8 +193,11 @@ def train_model(train, X_spot, Y_spot, Y1_spot, groupsLabel_spot, groupsLabel_re
 
                 if strategy == 2:
                     yhat1 = torch.max(yhat1[:,:,0:4], 2)[1].tolist()  
-                else:
+                elif strategy == 1:
+                    yhat1[:,:,4] = yhat1[:,:,4] * 0
                     yhat1 = torch.max(yhat1, 2)[1].tolist()  
+                else:
+                    yhat1 = torch.max(yhat1, 2)[1].tolist() 
 
                 for i in range(len(yhat)):
                     if framecount == video_num[videocount]:
@@ -243,8 +246,11 @@ def train_model(train, X_spot, Y_spot, Y1_spot, groupsLabel_spot, groupsLabel_re
                     yhat = yhat.cpu().data.numpy()
                     if strategy == 2:
                         yhat1 = torch.max(yhat1[:,:,0:4], 2)[1].tolist()  
-                    else:
+                    elif strategy == 1:
+                        yhat1[:,:,4] = yhat1[:,:,4] * 0
                         yhat1 = torch.max(yhat1, 2)[1].tolist()  
+                    else:
+                        yhat1 = torch.max(yhat1, 2)[1].tolist() 
 
                     for i in range(len(yhat)):
                         if framecount == video_num[videocount]:
