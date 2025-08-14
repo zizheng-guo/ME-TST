@@ -1,7 +1,5 @@
 # ME-TST+
 
-
-
 <img src="./figures/framework.jpg" alt="framework" style="zoom: 25%;" />
 
 
@@ -55,5 +53,13 @@ If you find this repository helpful, please consider citing:
   organization={IEEE}
 }
 
-
+@misc{guo2025metst+,
+      title={ME-TST+: Micro-expression Analysis via Temporal State Transition with ROI Relationship Awareness}, 
+      author={Zizheng Guo and Bochao Zou and Junbao Zhuo and Huimin Ma},
+      year={2025},
+      eprint={2508.08082},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2508.08082}, 
+}
 ```
