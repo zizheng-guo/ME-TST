@@ -53,13 +53,14 @@ If you find this repository helpful, please consider citing:
   organization={IEEE}
 }
 
-@misc{guo2025metst+,
-      title={ME-TST+: Micro-expression Analysis via Temporal State Transition with ROI Relationship Awareness}, 
-      author={Zizheng Guo and Bochao Zou and Junbao Zhuo and Huimin Ma},
-      year={2025},
-      eprint={2508.08082},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2508.08082}, 
+@ARTICLE{11477838,
+  author={Guo, Zizheng and Zou, Bochao and Zhuo, Junbao and Ma, Huimin},
+  journal={IEEE Transactions on Circuits and Systems for Video Technology}, 
+  title={ME-TST+: Micro-Expression Analysis via Temporal State Transition With ROI Relationship Awareness}, 
+  year={2026},
+  volume={36},
+  number={8},
+  pages={11155-11167},
+  doi={10.1109/TCSVT.2026.3682021}
 }
 ```
